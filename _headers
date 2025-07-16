@@ -2,6 +2,3 @@
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Embedder-Policy: require-corp
 
-/w_j15.wasm
-  Content-Type: application/wasm
-
