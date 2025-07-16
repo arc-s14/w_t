@@ -1,0 +1,330 @@
+
+<p style="font-family: monospace; font-size: 0.9em; margin-top: 10px;">
+  [note] just see the last instance of a rule <br/>[As] duplicate rules are printed/ copied - was checking directional probabilities as we update
+ <br/>--<br/>
+  [to do] player model table + 4 puzzles
+</p>
+
+
+<!DOCTYPE HTML>
+<!--
+Solarize by TEMPLATED
+templated.co @templatedco
+Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+  <!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+  <script src="../js/jquery.min.js"></script>
+  <script src="../js/jquery.dropotron.min.js"></script>
+  <script src="../js/skel.min.js"></script>
+  <script src="../js/skel-layers.min.js"></script>
+  <script src="../js/init2.js"></script>
+  <noscript>
+    <link rel="stylesheet" href="../css/skel.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+  </noscript>
+  <!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+
+
+<!--
+<style>
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+
+#white-screen {
+    position: absolute;
+    top: 0;
+    left: 500px; /* Half of 1000px width */
+    width: 500px;
+    height: 500px; /* Match canvas height */
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+    display: none;
+    z-index: 5;
+    pointer-events: none;
+}
+
+</style>
+-->
+
+  
+<!-- Output from Driver.cpp and first 5 lines-->
+<!-- append here so we get full text -->
+
+
+
+
+
+
+<script>
+let fullOutputLog = ""; // <-- this stores ALL output
+const visibleLines = [];          // last 5 lines (for display only) // remove redundant
+// call this whenever new output comes in
+function appendOutput_old(newLine) {
+    // WIP only add lines containing specific keyword
+    console.log("appendOutput called with:", newLine); // check
+    if (newLine.includes("")) { //newLine.includes("[Rule]:")
+        fullOutputLog += newLine + "\n";
+    }
+    
+    if (newLine.includes("[0, 0]")) { //newLine.includes("[Rule]:")
+        fullOutputLog += newLine + "\n new attempt";
+    }
+
+    // always show everything in display (optional)
+    const display = document.getElementById("cpp-output");
+    display.textContent += newLine + "\n";
+
+    // keep last 50 lines visible?
+    const lines = display.textContent.split('\n');
+    if (lines.length > 100) {
+        display.textContent = lines.slice(-50).join('\n');
+    }
+}
+
+function appendOutput(newLine) {
+    console.log("appendOutput called with:", newLine);
+
+    if (newLine.includes("[")) { // I can filter here I suppose
+        fullOutputLog += newLine + "\n";
+    }
+    if (newLine.includes("[0, 0]")) { // nope
+        fullOutputLog += newLine + "\n new attempt \n";
+    }
+
+    const display = document.getElementById("cpp-output");
+
+    // split and filter lines
+    // const lines = fullOutputLog.split('\n').filter(l => l.trim() !== "");
+    
+    
+
+    // only keep last 5 or 4
+    // display.textContent = lines.slice(-10).join('\n');
+    
+   // display.textContent += newLine + "\n";
+   // display.scrollTop = display.scrollHeight; // auto-scroll to bottom
+    
+    
+    // Update display buffer
+    visibleLines.push(newLine);
+    if (visibleLines.length > 3) {
+        visibleLines.shift(); // Remove oldest
+    }
+
+    // Show only last 5 lines
+    display.textContent = visibleLines.join("\n");
+    display.scrollTop = display.scrollHeight; // auto-scroll
+
+}
+
+
+// cpy full output
+function copyFullOutput() {
+    navigator.clipboard.writeText(fullOutputLog)
+        .then(() => {
+            alert("Full output copied!");
+        })
+        .catch(err => {
+            console.error("Copy failed: ", err);
+        });
+}
+</script>
+
+<script type="text/javascript">
+  const outputLines = []; // stores up to 5 lines
+
+  var Module = {
+  onRuntimeInitialized: function() {
+    bind(1000, 500);
+  },
+  print: function(text) {
+    appendOutput(text); // <<<<<< THIS is what was missing
+  },
+  printErr: function(text) {
+    appendOutput("[err] " + text); // also goes through appendOutput
+  }
+};
+
+</script>
+
+
+  
+
+<script src="witness_test.js"></script>
+<script src="../js/hog.js"></script>
+<script src="../js/script.js"></script>
+
+
+
+<!--
+<button id="triggerRBtn">Trigger R</button>
+
+<script>
+document.getElementById("triggerRBtn").addEventListener("click", function () {
+    if (Module && Module._triggerRKey) {
+        Module._triggerRKey();
+    } else {
+        console.warn("not loaded");
+    }
+});
+
+
+
+</script>
+-->
+<script>
+document.addEventListener("keydown", function (event) {
+    if (event.key === 'r' || event.key === 'R') {
+        const screen = document.getElementById("white-screen");
+        screen.style.display = (screen.style.display === "none") ? "block" : "none";
+    }
+});
+</script>
+
+
+
+<script>
+document.addEventListener("keydown", function (event) {
+    if (event.key === 'r' || event.key === 'R') {
+        const screen = document.getElementById("white-screen");
+        screen.style.display = (screen.style.display === "none") ? "block" : "none";
+    }
+});
+</script>
+
+<script>
+function toggleScreen() {
+    const screen = document.getElementById("white-screen");
+    screen.style.display = (screen.style.display === "none" || screen.style.display === "") ? "block" : "none";
+}
+
+// THINK still allow key press to toggle it too?? WIP
+document.addEventListener("keydown", function (event) {
+    if (event.key === 'r' || event.key === 'R') {
+        toggleScreen();
+    }
+});
+</script>
+
+
+<!-- Main -->
+<div id="main" class="wrapper style4">
+
+  <!-- Content -->
+  <div id="content" class="container">
+
+<h2>Player modelling</h2>
+
+<!-- [Intro/ remove this] -->
+
+<h3>Instructions</h3>
+<ol>
+<li>Keep going until you've solved all puzzles.
+<li>Afterwards, please copy the text and share it in slack.
+
+</ol>
+<p>
+<div id = "message"></div>
+<!-- <div id = "picture" width="1000" height="500"> -->
+<div id="picture" style="position: relative; width: 1000px; height: 500px;">
+
+
+
+  <!-- div covers the RIGHT HALF of the canvas -->
+<div id="white-screen"
+     style="background-color: #5DBB63;
+            z-index: 10;
+            display: none;
+            pointer-events: none;">
+</div>
+
+
+  <!-- BG canvas -->
+  <canvas id="bg" width="1000" height="500"
+          style="position: absolute; z-index: 0; touch-action:none;
+                 border:1px solid blue; background-color: transparent;">
+  </canvas>
+
+  <!-- FG canvas -->
+  <canvas id="fg" width="1000" height="500"
+          style="position: absolute; z-index: 1; touch-action:none;
+                 border:1px solid black; background-color: transparent;">
+  </canvas>
+
+  <!-- space -->
+  <div id="spacer" style="height:525px"> </div>
+</div>
+
+
+
+</div>
+<p>
+
+<!-- <input id="pos8" type="button" value="Copy" onclick="KeyEvent('s');" /> history of actions -->
+<div style="margin-top: 15px;">
+
+  <input type="button" value="Hide / Show" onclick="toggleScreen();" /> extra info. Use button or [Press 'r'].
+  <input type="button" value="Copy" onclick="copyFullOutput();" /> history of actions
+</div>
+
+
+<!-- output from C++ will appear here -->
+<pre id="cpp-output" style="background: #f9f9f9; border: 1px solid #ddd; padding: 1em; white-space: pre-wrap; font-family: monospace; max-height: 300px; overflow-y: auto;"></pre>
+
+
+<p style="font-family: monospace; font-size: 0.9em; margin-top: 10px;">
+  [Green] must_cross, [Red] cant_cross
+  <br/>--<br/>
+  [R1] Separation, [R2] PathConstraint, [R3] InsideSolutionTree, [R4] RegionCompletion, [R5] AlongThePath, [R6] TowardsGoal
+</p>
+
+    
+
+<div id="spacer" style="height:20px"> </div>
+
+    <!-- Footer -->
+    <div id="footer">
+      <!-- Copyright -->
+      <div id="copyright">
+	Content: &copy;Nathan Sturtevant, All rights reserved.
+	<!-- Design adapted from <a href="http://templated.co">TEMPLATED</a>-->
+      </div>			
+    </div>
+
+
+
+
+    <script>
+    window.addEventListener('load', adjustWhiteScreen);
+    window.addEventListener('resize', adjustWhiteScreen);
+
+    function adjustWhiteScreen() {
+      const fg = document.getElementById("fg");
+      const screen = document.getElementById("white-screen");
+
+      const fgRect = fg.getBoundingClientRect();
+
+      // put the white-screen over the right half of fg // zooming ridiculously affects this
+      screen.style.position = 'absolute';
+      screen.style.left = (fg.offsetLeft + fg.clientWidth / 2) + 'px';
+      screen.style.top = fg.offsetTop + 'px';
+      screen.style.width = (fg.clientWidth / 2) + 'px';
+      screen.style.height = fg.clientHeight + 'px';
+    }
+    </script>
+
+
+
+  </body>
+</html>
+

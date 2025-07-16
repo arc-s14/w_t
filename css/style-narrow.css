@@ -1,0 +1,32 @@
+/*
+	Solarize by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+*/
+
+/* Basic */
+
+#nav {
+    font-size: 9pt;
+}
+
+
+#nav > ul > li {
+    border-radius: 4px;
+    display: inline-block;
+    margin-left: 0.5em;
+    padding: 1em 0.5em;
+    list-style: none;
+}
+
+#nav > ul > li a {
+    color: inherit;
+    line-height: 4em;
+    letter-spacing: 1px;
+/*    text-decoration: none;
+    text-transform: uppercase;*/
+    font-weight: 400;
+    font-size: 1em;
+    list-style: none;
+}
+
