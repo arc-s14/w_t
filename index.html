@@ -21,142 +21,86 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
   </noscript>
   <!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
 
-
-
-  
-<!-- output from Driver.cpp and first 5 lines-->
-<!-- append here so we get full text -->
-
-
-
-
-<!-- all of this is to make sure that we have full history of player actions ALSO NEED MODEL that gets added after every attempt AND puzzle number-->
-<!-- this logs the Driver.cpp output so just fix that-->
-
-<script>
-let fullOutputLog = "";
-let currentAttempt = [];
-let seenAttempts = new Set();
-
-function appendOutput(newLine) {
-    const display = document.getElementById("cpp-output");
-
-    // new attempt
-    if (newLine.includes("[0, 0]")) {
-        // save previous attempt if it's new
-        if (currentAttempt.length > 0) {
-            const attemptText = currentAttempt.join("\n");
-            if (!seenAttempts.has(attemptText)) {
-                seenAttempts.add(attemptText);
-                fullOutputLog += attemptText + "\n[attempt]\n";
-            }
-        }
-        // start a new attempt block
-        currentAttempt = [newLine];
-    } else if (newLine.includes("[") || newLine.includes("You") || newLine.includes("Invalid") || newLine.includes("Solved!")) {
-        // adding relevant lines to the current attempt
-        currentAttempt.push(newLine);
-    }
-
-    // show last 10 lines
-    const lines = fullOutputLog.split('\n').filter(l => l.trim() !== "");
-    display.textContent = lines.slice(-10).join('\n');
-}
-
-
-
-
-// copy full output
-
-function copyFullOutput() {
-    // save the curr attempt if it's not empty and hasn't been logged yet
-    if (currentAttempt.length > 0) {
-        const attemptText = currentAttempt.join("\n");
-        if (!seenAttempts.has(attemptText)) {
-            seenAttempts.add(attemptText);
-            fullOutputLog += attemptText + "\n[attempt]\n";
-        }
-    }
-
-    // now we copy the updated fullOutputLog
-    navigator.clipboard.writeText(fullOutputLog)
-        .then(() => {
-            alert("All output copied");
-        })
-        .catch(err => {
-            console.error("Copy failed: ", err);
-        });
-}
-
-</script>
-
 <script type="text/javascript">
-  const outputLines = []; // stores up to 5 lines
-
   var Module = {
-  onRuntimeInitialized: function() {
-    bind(1000, 500);
-  },
-  print: function(text) {
-    appendOutput(text); // <<<<<< THIS is what was missing
-  },
-  printErr: function(text) {
-    appendOutput("[ERR] " + text); // also goes through appendOutput
-  }
-};
-
+    onRuntimeInitialized: function() {
+        bind(1000,500); // foobar was exported
+    }
+  };
 </script>
-
-
-  
-
 <script src="witness_t.js"></script>
 <script src="../js/hog.js"></script>
 <script src="../js/script.js"></script>
 
+<title>Single-Agent Search - Sliding Tile Puzzle Domain</title>
+    </head>
 
+<body class="homepage" onload="loadingMessage();">
 
-<!--
-<button id="triggerRBtn">Trigger R</button>
+<!-- Header Wrapper -->
+<div class="wrapper style1">
 
-<script>
-document.getElementById("triggerRBtn").addEventListener("click", function () {
-    if (Module && Module._triggerRKey) {
-        Module._triggerRKey();
-    } else {
-        console.warn("not loaded");
-    }
-});
+<!-- Header -->
+<div id="header">
+  <div class="container">
+    
+    <!-- Logo -->
+    <!-- Nav -->
+    <nav id="nav">
+      <ul>
+	<!-- <li class="active"><a href="index.html" title = "Home"><img src="images/mai3.png" border="0" height="40px" style="vertical-align:middle;" alt="Home"></a></li> -->
+	<li class="active"><a href="https://www.movingai.com/index.html">Moving AI Lab</a>::<a href = "https://www.movingai.com/SAS/">Single Agent Search</a></li>
+	<li class="active"><a href="https://www.movingai.com/SAS/index.html">Demos</a></li>
+	<li class="active"><a href="https://www.movingai.com/SAS/class.html">Course Outline</a></li>
+	
+	<li class="menu"><a href = "">Domains</a>
+	<ul>
+	  <li><a href = "http://www.movingai.com/SAS/STP">The Sliding Tile Puzzle</a></li>
+	  <li><a href = "http://www.movingai.com/SAS/PAN">The Pancake Puzzle</a></li>
+	</ul>
+	</li>
+      
+	<li class="menu"><a href = "">Search Algs</a>
+	<ul>
+	  <li><a href = "http://www.movingai.com/SAS/EXP">DFS, BFS, DFID on an exponential tree</a></li>
+	  <li><a href = "http://www.movingai.com/SAS/DIJ">Dijkstra's Algorithm on a graph (integer weights)</a></li>
+	  <li><a href = "http://www.movingai.com/SAS/ASG">Dijkstra, A* and Weighted A* on a graph</a></li>
+	  <li><a href = "http://www.movingai.com/SAS/ASM">A* on a grid map</a></li>
+	  <li><a href = "http://www.movingai.com/SAS/NBS">NBS on a grid map</a></li>
+	  <li><a href = "http://www.movingai.com/SAS/JPS">JPS on a grid map</a></li>
+	  <li><a href = "http://www.movingai.com/SAS/IDA">IDA* on the 3x2 Sliding tile puzzle</a></li>
+	  <li><a href = "https://www.movingai.com/SAS/BTS">IBEX/BTS and IDA* on the 3x2 sliding tile puzzle with non-unit costs</a></li>
+	  <li><a href = "http://www.movingai.com/SAS/ASG">Dijkstra, A* and Weighted A* on a graph</a></li>
+	  <li><a href = "http://www.movingai.com/SAS/SUB">A*, Weighted A*, A* Epsilon, Optimistic Search and Dynamic Potential Search on a grid map</a></li>
+	  <li><a href = "http://www.movingai.com/SAS/WAB">Weighted A* - Overhead of Re-expansions</a></li>
+	  <li><a href = "http://www.movingai.com/SAS/ABS">Abstraction and refinment in grid maps</a></li>
+	  <li><a href = "http://www.movingai.com/SAS/DWA">Abstraction and refinment on dynamic grid maps with dynamic costs</a></li>
+	</ul>
+	</li>
 
-
-
-</script>
--->
-<script>
-document.addEventListener("keydown", function (event) {
-    if (event.key === 'r' || event.key === 'R') {
-        const screen = document.getElementById("white-screen");
-        screen.style.display = (screen.style.display === "none") ? "block" : "none";
-    }
-});
-</script>
-
-<script>
-function toggleScreen() {
-    const screen = document.getElementById("white-screen");
-    screen.style.display = (screen.style.display === "none" || screen.style.display === "") ? "block" : "none";
-}
-
-// Optional: still allow key press to toggle it too
-document.addEventListener("keydown", function (event) {
-    if (event.key === 'r' || event.key === 'R') {
-        toggleScreen();
-    }
-});
-</script>
-
-
-
+	<li class="menu"><a href = "">Constraints</a>
+	<ul>
+	  <li><a href = "http://www.movingai.com/SAS/RCH">A* with Reach</a></li>
+	  <li><a href = "http://www.movingai.com/SAS/BBX">A* with Bounding Boxes</a><li>
+	  <li><a href = "http://www.movingai.com/SAS/ABS">Abstraction and refinment in grid maps</a></li>
+	  <li><a href = "http://www.movingai.com/SAS/DWA">Abstraction and refinment on dynamic grid maps with dynamic costs</a></li>
+      <li><a href = "http://www.movingai.com/SAS/TRA">Transit Routing Calculation Demo</a></li>
+	</ul>
+	
+	<li class="menu"><a href = "">Heuristics</a>
+	<ul>
+	  <li><a href = "http://www.movingai.com/SAS/PDB">IDA* on the 3x2 Sliding tile puzzle with Pattern Databases</a></li>
+	  <li><a href = "http://www.movingai.com/SAS/CPD">IDA* with Min-Compressed Pattern Databases</a></li>
+	  <li><a href = "http://www.movingai.com/SAS/DHP">A* with Differential Heuristics</a></li>
+	  <li><a href = "http://www.movingai.com/SAS/FMP">FastMap Heuristic Calculation Demo</a></li>
+	</ul>
+	</li>
+      </ul>
+    </nav>
+    
+  </div>
+</div>
+</div>
 
 <!-- Main -->
 <div id="main" class="wrapper style4">
@@ -164,77 +108,31 @@ document.addEventListener("keydown", function (event) {
   <!-- Content -->
   <div id="content" class="container">
 
-<h2>Player modelling</h2>
+<h2>Sliding Tile Puzzle</h2>
 
-<!-- [Intro/ remove this] -->
+The sliding-tile puzzle is a standard testbed problem that has been used for more than 50 years in Artificial Intelligence and search. 
+The generalized sliding-tile puzzle is NP-hard. The 15-puzzle has 16!/2 = 10,461,394,944,000 states. The asymptotic branching factor of the 15-puzzle is 2.1304.
 
 <h3>Instructions</h3>
 <ol>
-<li>Keep going until you've solved all puzzles.
-<li>When you have solved the puzzles, please copy the text and share it in slack.
+<li>Reset the puzzle to begin.
+<li>Try to solve the puzzle in as few moves as possible.
+<li>In the goal the blank is in the upper-left corner, and all tiles are in order from 1-15.
+<li>Click on a tile to slide it into the blank position.
+<li>When you have solved the puzzle, compare your solution length to a fast suboptimal solver.
 
 </ol>
 <p>
 <div id = "message"></div>
-<!-- <div id = "picture" width="1000" height="500"> -->
-<div id="picture" style="position: relative; width: 1000px; height: 500px;">
-
-
-
-  <!-- This div covers the RIGHT HALF of the canvas -->
-<div id="white-screen"
-     style="background-color: #9FE2BF;
-            z-index: 10;
-            display: none;
-            pointer-events: none;">
-</div>
-
-
-  <!-- Background canvas -->
-  <canvas id="bg" width="1000" height="500"
-          style="position: absolute; z-index: 0; touch-action:none;
-                 border:1px solid blue; background-color: transparent;">
-  </canvas>
-
-  <!-- Foreground canvas -->
-  <canvas id="fg" width="1000" height="500"
-          style="position: absolute; z-index: 1; touch-action:none;
-                 border:1px solid black; background-color: transparent;">
-  </canvas>
-
-  <!-- Spacer for layout -->
-  <div id="spacer" style="height:525px"> </div>
-</div>
-
-
-
+<div id = "picture" width="1000" height="500">
+<canvas id="bg" width="1000" height="500" style="position: absolute; z-index: 0; touch-action:none; border:1px solid blue; background-color: transparent;"></canvas>
+<canvas id="fg" width="1000" height="500" style="position: absolute; z-index: 1; touch-action:none; border:1px solid black; background-color: transparent;"></canvas>
+<div id="spacer" style="height:525px"> </div>
 </div>
 <p>
-
-<!-- <input id="pos8" type="button" value="Copy" onclick="KeyEvent('s');" /> history of actions 
-<input id="pos8" type="button" value="Hide/ Show" onclick="toggleScreen();" /> extra info 
-<input id="pos8" type="button" value="Copy" onclick="copyFullOutput();" /> history of actions -->
-
-<!-- buttons outside the white/red-covered area -->
-<div style="margin-top: 15px;">
-
-  <input type="button" value="Hide / Show" onclick="toggleScreen();" /> extra info
-  <input type="button" value="Copy" onclick="copyFullOutput();" /> history of actions
-</div>
-
-<!-- output from C++ will appear here -->
-<pre id="cpp-output" style="background: #f9f9f9; border: 1px solid #ddd; padding: 1em; white-space: pre-wrap; font-family: monospace; max-height: 300px; overflow-y: auto;"></pre>
-
-
+<input id="pos8" type="button" value="Reset" onclick="KeyEvent('s');" /> to random puzzle
 
 <div id="spacer" style="height:20px"> </div>
-
-
-</div> <!-- END of #picture -->
-
-
-
-
 
     <!-- Footer -->
     <div id="footer">
@@ -245,30 +143,5 @@ document.addEventListener("keydown", function (event) {
       </div>			
     </div>
 
-
-
-
-    <script>
-    window.addEventListener('load', adjustWhiteScreen);
-    window.addEventListener('resize', adjustWhiteScreen);
-
-    function adjustWhiteScreen() {
-      const fg = document.getElementById("fg");
-      const screen = document.getElementById("white-screen");
-
-      const fgRect = fg.getBoundingClientRect();
-
-      // Position the white-screen over the right half of fg
-      screen.style.position = 'absolute';
-      screen.style.left = (fg.offsetLeft + fg.clientWidth / 2) + 'px';
-      screen.style.top = fg.offsetTop + 'px';
-      screen.style.width = (fg.clientWidth / 2) + 'px';
-      screen.style.height = fg.clientHeight + 'px';
-    }
-    </script>
-
-
-
   </body>
 </html>
-
