@@ -866,7 +866,7 @@ function createExportWrapper(name, nargs) {
 var wasmBinaryFile;
 
 function findWasmBinary() {
-    return locateFile('witness_test.wasm');
+    return locateFile('w_j15.wasm');
 }
 
 function getBinarySync(file) {
