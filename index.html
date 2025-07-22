@@ -184,25 +184,6 @@ document.getElementById("triggerRBtn").addEventListener("click", function () {
 
 </script>
 -->
-<script>
-document.addEventListener("keydown", function (event) {
-    if (event.key === 'r' || event.key === 'R') {
-        const screen = document.getElementById("white-screen");
-        screen.style.display = (screen.style.display === "none") ? "block" : "none";
-    }
-});
-</script>
-
-
-
-<script>
-document.addEventListener("keydown", function (event) {
-    if (event.key === 'r' || event.key === 'R') {
-        const screen = document.getElementById("white-screen");
-        screen.style.display = (screen.style.display === "none") ? "block" : "none";
-    }
-});
-</script>
 
 <script>
 function toggleScreen() {
@@ -242,11 +223,11 @@ document.addEventListener("keydown", function (event) {
 
 
 
-  <!-- div covers the RIGHT HALF of the canvas -->
+  <!-- div covers the RIGHT HALF of the canvas // is on unless btn is pressed -->
 <div id="white-screen"
      style="background-color: #5DBB63;
             z-index: 10;
-            display: none;
+            display: block;
             pointer-events: none;">
 </div>
 
