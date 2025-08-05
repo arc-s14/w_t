@@ -1,9 +1,9 @@
 
 <p style="font-family: monospace; font-size: 0.9em; margin-top: 10px;">
-	
+  <!--
   [note] just see the last instance of a rule
-	<!--
- <br/>--<br/>
+	
+  <br/>--<br/>
   [to do] player model table + add relevant puzzles    -->
 </p>
 
@@ -142,6 +142,29 @@ function copyFullOutput() {
 }
 </script>
 
+<script>
+function downloadFullOutput() {
+    const blob = new Blob([fullOutputLog], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "pl_log.txt";
+    a.click();
+
+    URL.revokeObjectURL(url); // cleaning up
+}
+</script>
+
+<script>
+function copyAndDownload() { 
+    copyFullOutput(); // makes life easier
+    downloadFullOutput();
+}
+</script>
+
+
+
 <script type="text/javascript">
   const outputLines = []; // stores up to 5 lines
 
@@ -256,8 +279,9 @@ document.addEventListener("keydown", function (event) {
 <!-- <input id="pos8" type="button" value="Copy" onclick="KeyEvent('s');" /> history of actions -->
 <div style="margin-top: 15px;">
 
-  <input type="button" value="Hide / Show" onclick="toggleScreen();" /> extra info. Use button or [Press 'r'].
-  <input type="button" value="Copy" onclick="copyFullOutput();" /> history of actions
+  <input type="button" value="Hide / Show" onclick="toggleScreen();" /> extra info. [Or Press R].
+  <input type="button" value="Copy & Download" onclick="copyAndDownload();" /> history of actions
+  <!-- <input type="button" value="Download .txt" onclick="downloadFullOutput();" /> -->
 </div>
 
 
@@ -267,9 +291,9 @@ document.addEventListener("keydown", function (event) {
 
 <p style="font-family: monospace; font-size: 0.9em; margin-top: 10px;">
 	
-  [Green] must_cross, [Red] cant_cross
+  <!-- [Green] must_cross, [Red] cant_cross -->
   <br/>--<br/>
-  [R1] Separation, [R2] PathConstraint, [R3] InsideSolutionTree, [R4] RegionCompletion, [R5] AlongThePath, [R6] TowardsGoal
+  <!-- [R1] Separation, [R2] PathConstraint, [R3] InsideSolutionTree, [R4] RegionCompletion, [R5] AlongThePath, [R6] TowardsGoal -->
 	
 </p>
 
