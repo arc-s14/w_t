@@ -90,8 +90,8 @@ function appendOutput_old(newLine) {
 
     // keep last 50 lines visible?
     const lines = display.textContent.split('\n');
-    if (lines.length > 50) {
-        display.textContent = lines.slice(-50).join('\n');
+    if (lines.length > 100) {
+        display.textContent = lines.slice(-90).join('\n');
     }
 }
 
