@@ -29,6 +29,8 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
     <link rel="stylesheet" href="./css/skel.css" />
     <link rel="stylesheet" href="./css/style.css" />
   </noscript>
+
+	
   <!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
 
 
@@ -59,7 +61,7 @@ body {
 -->
 
   
-<!-- Output from Driver.cpp and first 5 lines-->
+<!--  from Driver.cpp and first 5 lines-->
 <!-- append here so we get full text -->
 
 
@@ -88,7 +90,7 @@ function appendOutput_old(newLine) {
 
     // keep last 50 lines visible?
     const lines = display.textContent.split('\n');
-    if (lines.length > 100) {
+    if (lines.length > 50) {
         display.textContent = lines.slice(-50).join('\n');
     }
 }
@@ -281,6 +283,7 @@ document.addEventListener("keydown", function (event) {
 
   <input type="button" value="Hide / Show" onclick="toggleScreen();" /> extra info. [Or Press R].
   <input type="button" value="Download" onclick="downloadFullOutput();" /> history of actions
+	
   <!-- <input type="button" value="Download .txt" onclick="downloadFullOutput();" /> 
   <input type="button" value="Copy & Download" onclick="copyAndDownload();" /> history of actions -->
 </div>
