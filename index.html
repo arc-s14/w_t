@@ -117,8 +117,17 @@ function appendOutput(newLine) {
 
 
 // cpy full output
+// let priorOutputLog = ""; // <-- this stores only the LATEST priors
+	
+function appendPrior(line) {
+    priorOutputLog.push(line);
+    if (priorOutputLog.length > 6) {
+        priorOutputLog.shift(); // remove oldest line
+    }
+}
 function copyFullOutput() {
-    navigator.clipboard.writeText(priorOutputLog)
+	const textToCopy = priorOutputLog.join("\n");
+    navigator.clipboard.writeText(textToCopy)
         .then(() => {
             alert("Priors copied!");
         })
