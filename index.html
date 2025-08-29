@@ -71,7 +71,7 @@ body {
 
 <script>
 let fullOutputLog = ""; // <-- this stores ALL output
-let priorOutputLog = ""; // <-- this stores only the LATEST priors
+let priorOutputLog = []; // <-- this stores only the LATEST priors
 const visibleLines = [];          // last 5 lines (for display only) // remove redundant
 // call this whenever new output comes in
 
@@ -86,7 +86,10 @@ function appendOutput(newLine) {
         fullOutputLog += newLine + "\n new attempt \n";
     }
 	if (newLine.includes("[r")) { // I can filter here I suppose
-        priorOutputLog += newLine + "\n";
+         priorOutputLog.push(newLine);
+        if (priorOutputLog.length > 6) {
+            priorOutputLog.shift(); // keep only last 6
+        }
     }
 
     const display = document.getElementById("cpp-output");
@@ -119,12 +122,6 @@ function appendOutput(newLine) {
 // cpy full output
 // let priorOutputLog = ""; // <-- this stores only the LATEST priors
 	
-function appendPrior(line) {
-    priorOutputLog.push(line);
-    if (priorOutputLog.length > 6) {
-        priorOutputLog.shift(); // remove oldest line
-    }
-}
 function copyFullOutput() {
 	const textToCopy = priorOutputLog.join("\n");
     navigator.clipboard.writeText(textToCopy)
