@@ -71,29 +71,10 @@ body {
 
 <script>
 let fullOutputLog = ""; // <-- this stores ALL output
+let priorOutputLog = ""; // <-- this stores only the LATEST priors
 const visibleLines = [];          // last 5 lines (for display only) // remove redundant
 // call this whenever new output comes in
-function appendOutput_old(newLine) {
-    // WIP only add lines containing specific keyword
-    console.log("appendOutput called with:", newLine); // check
-    if (newLine.includes("")) { //newLine.includes("[Rule]:")
-        fullOutputLog += newLine + "\n";
-    }
-    
-    if (newLine.includes("[0, 0]")) { //newLine.includes("[Rule]:")
-        fullOutputLog += newLine + "\n new attempt";
-    }
 
-    // always show everything in display (optional)
-    const display = document.getElementById("cpp-output");
-    display.textContent += newLine + "\n";
-
-    // keep last 50 lines visible?
-    const lines = display.textContent.split('\n');
-    if (lines.length > 100) {
-        display.textContent = lines.slice(-90).join('\n');
-    }
-}
 
 function appendOutput(newLine) {
     console.log("appendOutput called with:", newLine);
@@ -103,6 +84,9 @@ function appendOutput(newLine) {
     }
     if (newLine.includes("[0, 0]")) { // nope
         fullOutputLog += newLine + "\n new attempt \n";
+    }
+	if (newLine.includes("[r")) { // I can filter here I suppose
+        priorOutputLog += newLine + "\n";
     }
 
     const display = document.getElementById("cpp-output");
@@ -134,9 +118,9 @@ function appendOutput(newLine) {
 
 // cpy full output
 function copyFullOutput() {
-    navigator.clipboard.writeText(fullOutputLog)
+    navigator.clipboard.writeText(priorOutputLog)
         .then(() => {
-            alert("Full output copied!");
+            alert("Priors copied!");
         })
         .catch(err => {
             console.error("Copy failed: ", err);
@@ -282,7 +266,7 @@ document.addEventListener("keydown", function (event) {
 <div style="margin-top: 15px;">
 
   <input type="button" value="Hide / Show" onclick="toggleScreen();" /> extra info. [Or Press R].
-  <input type="button" value="Download" onclick="downloadFullOutput();" /> history of actions
+  <input type="button" value="Download/ Copy" onclick="copyAndDownload;()" /> history of actions
 	
   <!-- <input type="button" value="Download .txt" onclick="downloadFullOutput();" /> 
   <input type="button" value="Copy & Download" onclick="copyAndDownload();" /> history of actions -->
