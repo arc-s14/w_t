@@ -108,7 +108,7 @@ function appendOutput(newLine) {
     
     // Update display buffer
     visibleLines.push(newLine);
-    if (visibleLines.length > 10) {
+    if (visibleLines.length > 1) {
         visibleLines.shift(); // Remove oldest
     }
 
