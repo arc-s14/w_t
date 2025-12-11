@@ -89,7 +89,7 @@ const visibleLines = [];          // last 5 lines (for display only) // remove r
 function appendOutput(newLine) {
     console.log("appendOutput called with:", newLine);
 
-    if (newLine.includes("[")) { // I can filter here I suppose
+    if (newLine.includes("")) { // I can filter here I suppose
         fullOutputLog += newLine + "\n";
     }
     if (newLine.includes("[0, 0]")) { // nope
@@ -118,7 +118,7 @@ function appendOutput(newLine) {
     
     // Update display buffer
     visibleLines.push(newLine);
-    if (visibleLines.length > 1) {
+    if (visibleLines.length > 10) {
         visibleLines.shift(); // Remove oldest
     }
 
