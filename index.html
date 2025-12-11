@@ -97,7 +97,7 @@ function appendOutput(newLine) {
     }
 	if (newLine.includes("Pri_R")) { // I can filter here I suppose
          priorOutputLog.push(newLine);
-        if (priorOutputLog.length > 5) {
+        if (priorOutputLog.length > 6) {
             priorOutputLog.shift(); // keep only last 6
         }
     }
