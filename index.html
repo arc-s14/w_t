@@ -141,7 +141,7 @@ function downloadFullOutput() {
 
     const a = document.createElement("a");
     a.href = url;
-    a.download = "pl_log.txt";
+    a.download = "pl_hist.txt";
     a.click();
 
     URL.revokeObjectURL(url); // cleaning up
@@ -228,7 +228,8 @@ document.addEventListener("keydown", function (event) {
 <h3>Instructions</h3>
 <ol>
 <li>Keep going until you've solved all puzzles.
-<li>Afterwards, please download the history text file and share it in slack.
+<li>Afterwards, please download the history file and share it in slack.
+<li>Also, paste the rule info you copied.
 
 </ol>
 <p>
@@ -272,7 +273,7 @@ document.addEventListener("keydown", function (event) {
 <div style="margin-top: 15px;">
 
   <input type="button" value="Hide / Show" onclick="toggleScreen();" /> show info
-  <input type="button" value="Download/ Copy" onclick="copyAndDownload();" /> history of actions
+  <input type="button" value="Download & Copy" onclick="copyAndDownload();" /> history
 	
   <!-- <input type="button" value="Download .txt" onclick="downloadFullOutput();" /> 
   <input type="button" value="Copy & Download" onclick="copyAndDownload();" /> history of actions -->
